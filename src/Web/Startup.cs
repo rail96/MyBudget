@@ -37,6 +37,13 @@ namespace MyBudget.Web
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddDbContext<ExpenseContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("MyBudgetWebContext")));
+
+            services.AddDbContext<IncomeContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("IncomeContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +68,7 @@ namespace MyBudget.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Balance}/{action=Index}/{id?}");
             });
         }
     }
