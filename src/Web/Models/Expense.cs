@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace MyBudget.Web.Models
 {
  /*
@@ -24,10 +25,16 @@ namespace MyBudget.Web.Models
         /// Car
         /// Insurance
         /// </example>
-        public string Type { get; set; }
+        public ExpenseType Type { get; set; }
         
         //Expense Price
         public decimal Price { get; set; } 
     }
-       
+    public enum ExpenseType
+    {
+        Transport = 1,
+        Food = 2,
+        Insurance = 3,
+        Clothes = 4
+    }
 }

@@ -22,9 +22,16 @@ namespace MyBudget.Web.Models
         /// Calary
         /// Scholarship
         /// Business
-        /// </summary>
-        public string Type { get; set; }
+        /// </example>
+        public IncomeType Type { get; set; }
         //Income's price 
         public decimal Price { get; set; } 
+    }
+    public enum IncomeType
+    {
+        Calary = 1,
+        Scholarship = 2,
+        Business = 3,
+        Bank = 4
     }
 }

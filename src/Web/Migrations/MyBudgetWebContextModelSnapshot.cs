@@ -31,7 +31,7 @@ namespace MyBudget.Web.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("Type");
+                    b.Property<int>("Type");
 
                     b.HasKey("ID");
 

@@ -8,19 +8,20 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using MyBudget.Web.Models;
 using System;
 
-namespace MyBudget.Web.Migrations.Income
+namespace MyBudget.Web.Migrations
 {
-    [DbContext(typeof(IncomeContext))]
-    partial class IncomeContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ExpenseContext))]
+    [Migration("20180404152204_ExpenseLast")]
+    partial class ExpenseLast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyBudget.Web.Models.Income", b =>
+            modelBuilder.Entity("MyBudget.Web.Models.Expense", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -35,7 +36,7 @@ namespace MyBudget.Web.Migrations.Income
 
                     b.HasKey("ID");
 
-                    b.ToTable("Income");
+                    b.ToTable("Expense");
                 });
 #pragma warning restore 612, 618
         }

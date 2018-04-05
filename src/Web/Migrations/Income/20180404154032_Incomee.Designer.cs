@@ -11,9 +11,10 @@ using System;
 namespace MyBudget.Web.Migrations.Income
 {
     [DbContext(typeof(IncomeContext))]
-    partial class IncomeContextModelSnapshot : ModelSnapshot
+    [Migration("20180404154032_Incomee")]
+    partial class Incomee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
