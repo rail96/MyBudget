@@ -1,12 +1,19 @@
-﻿@model decimal
+﻿@model Balance
 @{
     ViewData["Title"] = "Balance";
 }
 
 <h2>Balance</h2>
 
-<h2>
+<p>
     Current Balance is
-    
-    @Model
-</h2>
+    @Model.CurrentBalance
+</p>
+<p>
+    Incom Total is
+    @Model.IncomeTotal
+</p>
+<p>
+    Expense Total is
+    @Model.ExpenseTotal
+</p>

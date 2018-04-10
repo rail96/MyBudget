@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBudget.Web.Models;
 
@@ -19,13 +18,65 @@ namespace MyBudget.Web.Controllers
         }
 
         // GET: Incomes
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? page)
         {
-            var incomesList = new IncomesList();
-            incomesList.Incomes = _context.Income;
-            incomesList.Total = _context.Income.Sum(x => x.Price);
-            return View(incomesList);
+            List<Income> incomesList = _context.Income.ToList();
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            // var incomes = incomesList.Incomes.ToList();
+            if (searchString != null)
+            {
+                incomesList = incomesList.Where(x => x.Title != null && x.Title.Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    incomesList = incomesList.OrderByDescending(s => s.Title).ToList();
+                    break;
+                case "Date":
+                    incomesList = incomesList.OrderBy(s => s.Date).ToList();
+                    break;
+                case "date_desc":
+                    incomesList = incomesList.OrderByDescending(s => s.Date).ToList();
+                    break;
+                case "type_desc":
+                    incomesList = incomesList.OrderByDescending(s => s.Type).ToList();
+                    break;
+                case "price_desc":
+                    incomesList = incomesList.OrderBy(s => s.Price).ToList();
+                    break;
+
+                default:
+                    incomesList = incomesList.OrderBy(s => s.Title).ToList();
+                    break;
+            }
+
+            var paginatedList = new PaginatedList<Income>(incomesList, page ?? 1, 3);
+
+            return View(paginatedList);
+
+
         }
+
 
         // GET: Incomes/Details/5
         public async Task<IActionResult> Details(int? id)

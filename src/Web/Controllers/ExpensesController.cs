@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace MyBudget.Web.Controllers
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             var values = from TEnum e in Enum.GetValues(typeof(TEnum))
-                         select new { Id = e, Name = e.ToString() };
+                         select new { Id = e, Name = e.ToString(CultureInfo.InvariantCulture) };
             return new SelectList(values, "Id", "Name", enumObj);
         }
     }
@@ -27,15 +28,67 @@ namespace MyBudget.Web.Controllers
         {
             _context = context;
         }
-        
+
 
         // GET: Expenses
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? page)
         {
-            var expensesList = new ExpensesList();
-            expensesList.Total = _context.Expense.Sum(x => x.Price);
-            expensesList.Expenses = _context.Expense;
-            return View(expensesList);
+            List<Expense> expenseslist = _context.Expense.ToList();
+            //  var expensesList = new ExpensesList();
+            //  expensesList.TotalSum = _context.Expense.Sum(x => x.Price);
+            // expensesList.Expenses = _context.Expense;
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            if (searchString != null)
+            {
+
+                expenseslist = _context.Expense.Where(s => s.Title != null && s.Title.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    expenseslist = expenseslist.OrderByDescending(s => s.Title).ToList();
+                    break;
+                case "Date":
+                    expenseslist = expenseslist.OrderBy(s => s.Date).ToList();
+                    break;
+                case "date_desc":
+                    expenseslist = expenseslist.OrderByDescending(s => s.Date).ToList();
+                    break;
+                case "type_desc":
+                    expenseslist = expenseslist.OrderByDescending(s => s.Type).ToList();
+                    break;
+                case "price_desc":
+                    expenseslist = expenseslist.OrderBy(s => s.Price).ToList();
+                    break;
+
+                default:
+                    expenseslist = expenseslist.OrderBy(s => s.Title).ToList();
+                    break;
+            }
+
+            var paginatedList = new PaginatedList<Expense>(expenseslist, page ?? 1, 3);
+
+            return View(paginatedList);
+
 
         }
 

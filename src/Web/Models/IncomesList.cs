@@ -9,6 +9,6 @@ namespace MyBudget.Web.Models
     {
         public IEnumerable<Income> Incomes { get; set; }
 
-        public decimal Total { get; set; }
+        public decimal TotalSum { get; set; }
     }
 }

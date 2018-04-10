@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBudget.Web", "Web\MyBudget.Web.csproj", "{A3195FF3-8C7F-451E-85A8-3DE6A1324185}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.PublicApi", "PublicApi\MyBudget.PublicApi.csproj", "{C1C12143-28C8-40D2-BF37-862608022C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBudget.PublicApi", "PublicApi\MyBudget.PublicApi.csproj", "{C1C12143-28C8-40D2-BF37-862608022C91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

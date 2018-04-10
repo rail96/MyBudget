@@ -9,7 +9,7 @@ namespace MyBudget.Web.Models
     {
         public IEnumerable<Expense> Expenses { get; set; }
 
-        public decimal Total { get; set; }
+        public decimal TotalSum { get; set; }
 
         
     }

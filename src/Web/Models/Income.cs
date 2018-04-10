@@ -19,7 +19,7 @@ namespace MyBudget.Web.Models
         public DateTime Date { get; set; }
         //Income's Type
         /// <example>
-        /// Calary
+        /// Salary
         /// Scholarship
         /// Business
         /// </example>
@@ -29,7 +29,7 @@ namespace MyBudget.Web.Models
     }
     public enum IncomeType
     {
-        Calary = 1,
+        Salary = 1,
         Scholarship = 2,
         Business = 3,
         Bank = 4
