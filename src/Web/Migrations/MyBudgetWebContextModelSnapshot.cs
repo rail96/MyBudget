@@ -27,6 +27,18 @@ namespace MyBudget.Web.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<decimal>("ExpenseAprSum");
+
+                    b.Property<decimal>("ExpenseFebSum");
+
+                    b.Property<decimal>("ExpenseJanSum");
+
+                    b.Property<decimal>("ExpenseJuneSum");
+
+                    b.Property<decimal>("ExpenseMarSum");
+
+                    b.Property<decimal>("ExpenseMaySum");
+
                     b.Property<decimal>("Price");
 
                     b.Property<string>("Title");

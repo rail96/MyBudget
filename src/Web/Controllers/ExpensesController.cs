@@ -37,9 +37,6 @@ namespace MyBudget.Web.Controllers
             int? page)
         {
             List<Expense> expenseslist = _context.Expense.ToList();
-            //  var expensesList = new ExpensesList();
-            //  expensesList.TotalSum = _context.Expense.Sum(x => x.Price);
-            // expensesList.Expenses = _context.Expense;
 
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -85,7 +82,7 @@ namespace MyBudget.Web.Controllers
                     break;
             }
 
-            var paginatedList = new PaginatedList<Expense>(expenseslist, page ?? 1, 3);
+            var paginatedList = new PaginatedList<Expense>(expenseslist, page ?? 1, 10);
 
             return View(paginatedList);
 

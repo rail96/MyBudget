@@ -70,7 +70,7 @@ namespace MyBudget.Web.Controllers
                     break;
             }
 
-            var paginatedList = new PaginatedList<Income>(incomesList, page ?? 1, 3);
+            var paginatedList = new PaginatedList<Income>(incomesList, page ?? 1, 10);
 
             return View(paginatedList);
 

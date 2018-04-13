@@ -26,7 +26,6 @@ namespace MyBudget.Web.Models
         /// Insurance
         /// </example>
         public ExpenseType Type { get; set; }
-        
         //Expense Price
         public decimal Price { get; set; } 
     }

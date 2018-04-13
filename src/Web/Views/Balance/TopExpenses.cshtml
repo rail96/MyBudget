@@ -1,11 +1,67 @@
 ﻿@model Balance
 @{
     ViewData["Title"] = "TopExpenses";
+    var sum = (@Model.BalanceExpenseTransport + @Model.BalanceExpenseFood + @Model.BalanceExpenseInsurance + @Model.BalanceExpenseClothes);
+
 }
 
 <h2>TopExpenses</h2>
 
-<p>Salary Total is @Model.BalanceTransport</p>
-<p>Scholarship Total is @Model.BalanceFood</p>
-<p>Bank Total is @Model.BalanceInsurance</p>
-<p>Business Total is @Model.BalanceTransport</p>
+<p>Transport Total is @Model.BalanceExpenseTransport</p>
+<p>Food Total is @Model.BalanceExpenseFood</p>
+<p>Insurance Total is @Model.BalanceExpenseInsurance</p>
+<p>Clothes Total is @Model.BalanceExpenseClothes</p>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function() {
+
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Top Expenses Chart"
+                    },
+                    legend: {
+                        cursor: "pointer",
+                        itemclick: explodePie
+                    },
+                    data: [
+                        {
+                            type: "pie",
+                            showInLegend: true,
+                            toolTipContent: "{name}: <strong>{y}%</strong>",
+                            indexLabel: "{name} - {y}%",
+                            dataPoints: [
+                                { y: @Math.Round(Model.BalanceExpenseTransport*100 / sum, MidpointRounding.ToEven),
+                                    name: "Transport",
+                                    exploded: true
+                                }, { y: @Math.Round(Model.BalanceExpenseFood * 100 / sum, MidpointRounding.ToEven), name: "Food" },
+                        { y: @Math.Round(Model.BalanceExpenseInsurance * 100 / sum, MidpointRounding.ToEven), name: "Insurance" },
+                        { y: @Math.Round(Model.BalanceExpenseClothes * 100 / sum, MidpointRounding.ToEven), name: "Clothes" }
+                    ]
+                }]
+            });
+            chart.render();
+        }
+
+        function explodePie (e) {
+            if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+            } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+            }
+            e.chart.render();
+
+        }
+    </script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</body>
+</html>

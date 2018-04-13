@@ -1,11 +1,62 @@
 ﻿@model Balance
 @{
     ViewData["Title"] = "TopIncomes";
+    var sum = (@Model.BalanceIncomeSalary + @Model.BalanceIncomeScholarship + @Model.BalanceIncomeBank + @Model.BalanceIncomeBusiness);
 }
 
 <h2>TopIncomes</h2>
 
-<p>Salary Total is @Model.BalanceSalary</p>
-<p>Scholarship Total is @Model.BalanceScholarship</p>
-<p>Bank Total is @Model.BalanceBank</p>
-<p>Business Total is @Model.BalanceBusiness</p>
+<p>Salary Total is @Model.BalanceIncomeSalary</p>
+<p>Scholarship Total is @Model.BalanceIncomeScholarship</p>
+<p>Bank Total is @Model.BalanceIncomeBank</p>
+<p>Business Total is @Model.BalanceIncomeBusiness</p>
+    
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                exportEnabled: true,
+                animationEnabled: true,
+                title:{
+                    text: "Top Incomes Chart"
+                },
+                legend:{
+                    cursor: "pointer",
+                    itemclick: explodePie
+                },
+                data: [{
+                    type: "pie",
+                    showInLegend: true,
+                    toolTipContent: "{name}: <strong>{y}%</strong>",
+                    indexLabel: "{name} - {y}%",
+                    dataPoints: [
+                        { y: @Math.Round(Model.BalanceIncomeSalary/sum*100, 2), name: "Salary", exploded: true },
+                        { y: @Math.Round(Model.BalanceIncomeScholarship/sum*100, 2), name: "Scholarship" },
+                        { y: @Math.Round(Model.BalanceIncomeBank/sum*100, 2), name: "Bank" },
+                        { y: @Math.Round(Model.BalanceIncomeBusiness/sum*100, 2), name: "Business" }
+                    ]
+                }]
+            });
+            chart.render();
+        }
+
+        function explodePie (e) {
+            if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+            } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+            }
+            e.chart.render();
+
+        }
+    </script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</body>
+</html>

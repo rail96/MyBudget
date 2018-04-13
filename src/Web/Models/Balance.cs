@@ -13,14 +13,17 @@ namespace MyBudget.Web.Models
         public decimal CurrentBalance { get; set; }
         public decimal TopExpenses { get; set; }
         public decimal TopIncomes { get; set; }
-        public decimal BalanceSalary { get; set; }
-        public decimal BalanceScholarship{ get; set; }
-        public decimal BalanceBank { get; set; }
-        public decimal BalanceBusiness { get; set; }
-        public decimal BalanceTransport { get; set; }
-        public decimal BalanceFood { get; set; }
-        public decimal BalanceInsurance{ get; set; }
-        public decimal BalanceClothes { get; set; }
+        public decimal BalanceIncomeSalary { get; set; }
+        public decimal BalanceIncomeScholarship{ get; set; }
+        public decimal BalanceIncomeBank { get; set; }
+        public decimal BalanceIncomeBusiness { get; set; }
+        public decimal BalanceExpenseTransport { get; set; }
+        public decimal BalanceExpenseFood { get; set; }
+        public decimal BalanceExpenseInsurance{ get; set; }
+        public decimal BalanceExpenseClothes { get; set; }
+
+        public  List<decimal> BalanceExpenseMonth { get; set; }
+        public List<decimal> BalanceIncomeMonth { get; set; }
 
     }
 }

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyBudget.Web.Migrations.Income;
 using MyBudget.Web.Models;
 
-
 namespace MyBudget.Web.Controllers
 {
     public class BalanceController : Controller
@@ -18,17 +17,30 @@ namespace MyBudget.Web.Controllers
             _incomeContext = incomeContext;
             _expenseContext = expenseContext;
         }
-        
+       
         public IActionResult Index()
         {
             var balance = new Balance();
             balance.ExpenseTotal = _expenseContext.Expense.Sum(x => x.Price);
             balance.IncomeTotal = _incomeContext.Income.Sum(x => x.Price);
             balance.CurrentBalance = balance.IncomeTotal - balance.ExpenseTotal;
+            decimal[] balanceExpenseMonth = new decimal[12];
+            decimal[] balanceIncomeMonth = new decimal[12];
+            foreach (var exp in _expenseContext.Expense.ToList())
+            {
+                 balanceExpenseMonth[exp.Date.Month - 1] += exp.Price;               
+            }
+ 
 
-           return View(balance);
+            foreach (var inc in _incomeContext.Income.ToList())
+            {
+              balanceIncomeMonth[inc.Date.Month - 1] += inc.Price;
+            }
+            balance.BalanceExpenseMonth = balanceExpenseMonth.ToList();
+            balance.BalanceIncomeMonth = balanceIncomeMonth.ToList();
+            return View(balance);
 
-            
+
         }
 
         public IActionResult TopIncomes()
@@ -39,16 +51,16 @@ namespace MyBudget.Web.Controllers
                 switch (inc.Type)
                 {
                     case IncomeType.Salary:
-                        balance.BalanceSalary += inc.Price;
+                        balance.BalanceIncomeSalary += inc.Price;
                         break;
                     case IncomeType.Scholarship:
-                        balance.BalanceScholarship += inc.Price;
+                        balance.BalanceIncomeScholarship += inc.Price;
                         break;
                     case IncomeType.Business:
-                        balance.BalanceBusiness += inc.Price;
+                        balance.BalanceIncomeBusiness += inc.Price;
                         break;
                     case IncomeType.Bank:
-                        balance.BalanceBank += inc.Price;
+                        balance.BalanceIncomeBank += inc.Price;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -69,16 +81,16 @@ namespace MyBudget.Web.Controllers
                 switch (exp.Type)
                 {
                     case ExpenseType.Transport:
-                        balance.BalanceTransport += exp.Price;
+                        balance.BalanceExpenseTransport += exp.Price;
                         break;
                     case ExpenseType.Food:
-                        balance.BalanceFood += exp.Price;
+                        balance.BalanceExpenseFood += exp.Price;
                         break;
                     case ExpenseType.Insurance:
-                        balance.BalanceInsurance += exp.Price;
+                        balance.BalanceExpenseInsurance += exp.Price;
                         break;
                     case ExpenseType.Clothes:
-                        balance.BalanceClothes += exp.Price;
+                        balance.BalanceExpenseClothes += exp.Price;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
