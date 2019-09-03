@@ -34,7 +34,7 @@ namespace MyBudget.Web.Controllers
 
             foreach (var inc in _incomeContext.Income.ToList())
             {
-              balanceIncomeMonth[inc.Date.Month - 1] += inc.Price;
+                balanceIncomeMonth[inc.Date.Month - 1] += inc.Price;
             }
             balance.BalanceExpenseMonth = balanceExpenseMonth.ToList();
             balance.BalanceIncomeMonth = balanceIncomeMonth.ToList();

@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "TopExpenses";
     var sum = (@Model.BalanceExpenseTransport + @Model.BalanceExpenseFood + @Model.BalanceExpenseInsurance + @Model.BalanceExpenseClothes);
-
 }
 
 <h2>TopExpenses</h2>
@@ -18,7 +17,7 @@
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript">
 
-        window.onload = function() {
+        window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer",
                 {
@@ -38,12 +37,10 @@
                             toolTipContent: "{name}: <strong>{y}%</strong>",
                             indexLabel: "{name} - {y}%",
                             dataPoints: [
-                                { y: @Math.Round(Model.BalanceExpenseTransport*100 / sum, MidpointRounding.ToEven),
-                                    name: "Transport",
-                                    exploded: true
-                                }, { y: @Math.Round(Model.BalanceExpenseFood * 100 / sum, MidpointRounding.ToEven), name: "Food" },
-                        { y: @Math.Round(Model.BalanceExpenseInsurance * 100 / sum, MidpointRounding.ToEven), name: "Insurance" },
-                        { y: @Math.Round(Model.BalanceExpenseClothes * 100 / sum, MidpointRounding.ToEven), name: "Clothes" }
+                                { y: @Math.Round(Model.BalanceExpenseTransport*100 / sum, MidpointRounding.ToEven), name: "Transport", exploded: true },
+                                { y: @Math.Round(Model.BalanceExpenseFood * 100 / sum, MidpointRounding.ToEven), name: "Food" },
+                                { y: @Math.Round(Model.BalanceExpenseInsurance * 100 / sum, MidpointRounding.ToEven), name: "Insurance" },
+                                { y: @Math.Round(Model.BalanceExpenseClothes * 100 / sum, MidpointRounding.ToEven), name: "Clothes" }
                     ]
                 }]
             });

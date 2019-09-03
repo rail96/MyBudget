@@ -19,26 +19,28 @@
 
         window.onload = function () {
 
-            var chart = new CanvasJS.Chart("chartContainer", {
-                exportEnabled: true,
-                animationEnabled: true,
-                title:{
-                    text: "Top Incomes Chart"
-                },
-                legend:{
-                    cursor: "pointer",
-                    itemclick: explodePie
-                },
-                data: [{
-                    type: "pie",
-                    showInLegend: true,
-                    toolTipContent: "{name}: <strong>{y}%</strong>",
-                    indexLabel: "{name} - {y}%",
-                    dataPoints: [
-                        { y: @Math.Round(Model.BalanceIncomeSalary/sum*100, 2), name: "Salary", exploded: true },
-                        { y: @Math.Round(Model.BalanceIncomeScholarship/sum*100, 2), name: "Scholarship" },
-                        { y: @Math.Round(Model.BalanceIncomeBank/sum*100, 2), name: "Bank" },
-                        { y: @Math.Round(Model.BalanceIncomeBusiness/sum*100, 2), name: "Business" }
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title:  {
+                        text: "Top Incomes Chart"
+                    },
+                    legend: {
+                        cursor: "pointer",
+                        itemclick: explodePie
+                    },
+                    data: [
+                        {
+                            type: "pie",
+                            showInLegend: true,
+                            toolTipContent: "{name}: <strong>{y}%</strong>",
+                            indexLabel: "{name} - {y}%",
+                            dataPoints: [
+                                { y: @Math.Round(Model.BalanceIncomeSalary/sum*100, MidpointRounding.ToEven), name: "Salary", exploded: true },
+                                { y: @Math.Round(Model.BalanceIncomeScholarship/sum*100, MidpointRounding.ToEven), name: "Scholarship" },
+                                { y: @Math.Round(Model.BalanceIncomeBank/sum*100, MidpointRounding.ToEven), name: "Bank" },
+                                { y: @Math.Round(Model.BalanceIncomeBusiness/sum*100, MidpointRounding.ToEven), name: "Business" }
                     ]
                 }]
             });
