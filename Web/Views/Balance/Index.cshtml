@@ -1,0 +1,172 @@
+﻿@model Balance
+@{
+    ViewData["Title"] = "Balance";
+}
+
+<h2>Balance</h2>
+
+<p>
+    Current Balance is
+    @Model.CurrentBalance
+</p>
+<p>
+    Income Total is
+    @Model.IncomeTotal
+</p>
+<p>
+    Expense Total is
+    @Model.ExpenseTotal
+</p>
+
+
+<!DOCTYPE HTML>
+<html>
+<head>  
+    <script>
+window.onload = function () {
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text: "Expenses"
+	},
+	axisY :{
+		includeZero: false,
+		prefix: "Р"
+	},
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		fontSize: 13
+	},
+	data: [{
+		type: "splineArea",
+		showInLegend: true,
+		name: "Salaries",
+		yValueFormatString: "Р#,##0",
+		xValueFormatString: "MMM YYYY",
+		dataPoints: [
+			{ x: new Date(2019, 2), y: @Model.BalanceExpenseMonth[2] },
+			{ x: new Date(2019, 3), y: @Model.BalanceExpenseMonth[3] },
+			{ x: new Date(2019, 4), y: @Model.BalanceExpenseMonth[4] },
+			{ x: new Date(2019, 5), y: @Model.BalanceExpenseMonth[5] },
+			{ x: new Date(2019, 6), y: @Model.BalanceExpenseMonth[6] },
+			{ x: new Date(2019, 7), y: @Model.BalanceExpenseMonth[7] },
+			{ x: new Date(2019, 8), y: @Model.BalanceExpenseMonth[8] },
+			{ x: new Date(2019, 9), y: @Model.BalanceExpenseMonth[9] },
+			{ x: new Date(2019, 10), y: @Model.BalanceExpenseMonth[10] },
+			{ x: new Date(2019, 11), y: @Model.BalanceExpenseMonth[11] },
+			{ x: new Date(2020, 0),  y: @Model.BalanceExpenseMonth[0] },
+			{ x: new Date(2021, 1),  y: @Model.BalanceExpenseMonth[1] }
+		]
+ 	},
+	{
+		type: "splineArea",
+		showInLegend: true, 
+		name: "Income",
+		yValueFormatString: "Р#,##0",
+		dataPoints: [
+		    { x: new Date(2019, 2), y: @Model.BalanceIncomeMonth[2] },
+		    { x: new Date(2019, 3), y: @Model.BalanceIncomeMonth[3] },
+		    { x: new Date(2019, 4), y: @Model.BalanceIncomeMonth[4] },
+		    { x: new Date(2019, 5), y: @Model.BalanceIncomeMonth[5] },
+		    { x: new Date(2019, 6), y: @Model.BalanceIncomeMonth[6] },
+		    { x: new Date(2019, 7), y: @Model.BalanceIncomeMonth[7] },
+		    { x: new Date(2019, 8), y: @Model.BalanceIncomeMonth[8] },
+		    { x: new Date(2019, 9), y: @Model.BalanceIncomeMonth[9] },
+		    { x: new Date(2019, 10), y: @Model.BalanceIncomeMonth[10] },
+		    { x: new Date(2019, 11), y: @Model.BalanceIncomeMonth[11] },
+		    { x: new Date(2020, 0),  y: @Model.BalanceIncomeMonth[0] },
+		    { x: new Date(2021, 1),  y: @Model.BalanceIncomeMonth[1] }
+		]
+ 	}
+	]
+});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
+
+
+
+<!DOCTYPE HTML>
+    <html>
+    <head>
+        <script>
+    window.onload = function () {
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title:{
+            text: "Balance"
+        },
+        axisY :{
+            includeZero: false,
+            prefix: "Р "
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            fontSize: 13
+        },
+        data: [{
+            type: "splineArea",
+            showInLegend: true,
+            name: "Expenses",
+            yValueFormatString: "Р #,##0",
+            xValueFormatString: "MMM YYYY",
+            dataPoints: [
+                { x: new Date(2018, 0),  y: @Model.BalanceExpenseMonth[0] },
+                { x: new Date(2018, 1), y:  @Model.BalanceExpenseMonth[1] },
+                { x: new Date(2018, 2), y: @Model.BalanceExpenseMonth[2]  },
+                { x: new Date(2018, 3), y: @Model.BalanceExpenseMonth[3]  },
+                { x: new Date(2018, 4), y: @Model.BalanceExpenseMonth[4]  },
+                { x: new Date(2018, 5), y: @Model.BalanceExpenseMonth[5]  },
+                { x: new Date(2018, 6), y: @Model.BalanceExpenseMonth[6]  },
+                { x: new Date(2018, 7), y: @Model.BalanceExpenseMonth[7]  },
+                { x: new Date(2018, 8), y: @Model.BalanceExpenseMonth[8]  },
+                { x: new Date(2018, 9), y: @Model.BalanceExpenseMonth[9]  },
+                { x: new Date(2018, 10), y: @Model.BalanceExpenseMonth[10]  }
+
+
+            ]
+        },
+        {
+            type: "splineArea",
+            showInLegend: true,
+            name: "Incomes",
+            yValueFormatString: "Р #,##0",
+            dataPoints: [
+                { x: new Date(2018, 0),  y: @Model.BalanceIncomeMonth[0] },
+                { x: new Date(2018, 1), y:  @Model.BalanceIncomeMonth[1] },
+                { x: new Date(2018, 2), y: @Model.BalanceIncomeMonth[2]  },
+                { x: new Date(2018, 3), y: @Model.BalanceIncomeMonth[3]  },
+                { x: new Date(2018, 4), y: @Model.BalanceIncomeMonth[4]  },
+                { x: new Date(2018, 5), y: @Model.BalanceIncomeMonth[5]  },
+                { x: new Date(2018, 6), y: @Model.BalanceIncomeMonth[6]  },
+                { x: new Date(2018, 7), y: @Model.BalanceIncomeMonth[7]  },
+                { x: new Date(2018, 8), y: @Model.BalanceIncomeMonth[8]  },
+                { x: new Date(2018, 9), y: @Model.BalanceIncomeMonth[9]  },
+                { x: new Date(2018, 10), y: @Model.BalanceIncomeMonth[10]  }
+
+            ]
+        }
+        ]
+    });
+    chart.render();
+
+    }
+        </script>
+    </head>
+    <body>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </body>
+    </html>
