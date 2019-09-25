@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyBudget.Web.Migrations.Income
 {
-    public partial class Incomee : Migration
+    public partial class MyFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

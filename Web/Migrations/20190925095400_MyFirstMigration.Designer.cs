@@ -11,8 +11,8 @@ using System;
 namespace MyBudget.Web.Migrations
 {
     [DbContext(typeof(ExpenseContext))]
-    [Migration("20180404152204_ExpenseLast")]
-    partial class ExpenseLast
+    [Migration("20190925095400_MyFirstMigration")]
+    partial class MyFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
